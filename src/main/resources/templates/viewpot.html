@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of Users</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<table style="width:100%">
+    <caption><h1>Display All Pot Information</h1></caption>
+    <p><input type="text" name="firstname"/>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Dish</th>
+
+    </tr>
+
+    </p>
+    <tr th:each="potList : ${newPot}">
+
+        <td th:text="${potList.firstname}" ></td>
+        <td th:text="${potList.lastname}" ></td>
+        <td th:text="${potList.dish}"></td>
+
+    </tr>
+</table>
+<p><a href="addpot">Add More Name and Dishes Info.</a></p>
+<p><a href="mainpage">Home Page</a></p>
+
+</body>
+</html>

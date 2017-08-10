@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <form  action="#"  th:action="@{/addpot}"  method="post" th:object="${newPot}">
+
+
+            <!-- Form Name -->
+            <legend align="Center">Enter Your Name and Number!</legend>
+            <!-- Text input-->
+            <div  th:if="${#fields.hasErrors('firstname')}" th:text="*{firstname}">You Must enter a valid Name!</div>
+                <label>First Name</label>
+                        <input type="text" th:field="*{firstname}" name="firstname" placeholder="Enter First Name"  />
+        <label>Last Name</label>
+        <input type="text" th:field="*{lastname}" name="lastname" placeholder="Enter Last Name"  />
+            <!-- Text input-->
+                <div  th:if="${#fields.hasErrors('dish')}" th:text="*{dish}">You Must enter a dish !</div>
+                <label>Dish</label>
+                        <input type="text" th:field="*{dish}" name="dish" placeholder="Enter dish" >
+            <!-- Button -->
+            <div>
+                <button type="submit" class="btn btn-warning" >Submit<span class="glyphicon glyphicon-hand-up"></span></button>
+            </div>
+
+
+    </form>
+</div>
+</body>
+</html>

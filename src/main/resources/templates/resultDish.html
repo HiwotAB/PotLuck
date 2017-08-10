@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+
+</head>
+<body>
+
+<table >
+
+    <caption><h1>Display All Dish Name Information</h1></caption>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Dish</th>
+
+    </tr>
+
+    <tr th:each="potList : ${searchDish}">
+
+        <td th:text="${potList.firstname}" ></td>
+        <td th:text="${potList.lastname}" ></td>
+        <td th:text="${potList.dish}"></td>
+
+
+    </tr>
+</table>
+</body>
+</html>

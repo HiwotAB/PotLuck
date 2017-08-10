@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+
+</head>
+<body>
+<div class="container">
+    <form  action="#"  th:action="@{/searchname}"  method="post" th:object="${searchNames}">
+
+        <div  th:if="${#fields.hasErrors('firstname')}" th:text="*{firstname}">You Must enter a valid Name!</div>
+        <label>First Name</label>
+        <input type="text" th:field="*{firstname}" name="firstname" placeholder="Enter First Name"  />
+
+            <button type="submit" class="btn btn-warning" >Search<span class="glyphicon glyphicon-hand-up"></span></button>
+
+
+    </form>
+</div>
+
+</body>
+</html>
