@@ -1,7 +1,7 @@
 package com.hiwotab.potluck.controllers;
 
-import com.hiwotab.potluck.Models.Pot;
-import com.hiwotab.potluck.repositories.PotRepository;
+import com.hiwotab.potluck.Models.PotLuck;
+import com.hiwotab.potluck.repositories.PotLuckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,65 +9,72 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
 @Controller
 public class PotController {
     @Autowired
-    PotRepository potRepository;
+    PotLuckRepository potLuckRepository;
 
-    @GetMapping("/mainpage")
-    public String loadForm() {
-        return "mainpage";
+    @GetMapping("/")
+    public String homePageD() {
+        return "homePage";
     }
 
-    @GetMapping("/addpot")
-    public String addPot(Model model) {
-        model.addAttribute("newPot", new Pot());
-        return "addpot";
+    @GetMapping("/homePage")
+    public String homePage() {
+        return "homePage";
     }
 
-    @PostMapping("/addpot")
-    public String check(@Valid @ModelAttribute("newPot") Pot pot, BindingResult result) {
+    @GetMapping("/addPotLuck")
+    public String addPotLuckInfo(Model model) {
+        model.addAttribute("newPot", new PotLuck());
+        return "addPotLuck";
+    }
+
+    @PostMapping("/addPotLuck")
+    public String addPotLuckInfo(@Valid @ModelAttribute("newPot") PotLuck pot, BindingResult result) {
         if (result.hasErrors()) {
-            return "addpot";
+            return "addPotLuck";
         }
-        potRepository.save(pot);
-        return "confirmPage";
+        potLuckRepository.save(pot);
+        return "dispPotLuck";
     }
 
-    @GetMapping("/viewpot")
-    public String view(Model model) {
-        Iterable<Pot> potList = potRepository.findAll();
+    @GetMapping("/ListPotLuckInfo")
+    public String viewPotLuckInfo(Model model) {
+        Iterable<PotLuck> potList = potLuckRepository.findAll();
         model.addAttribute("newPot", potList);
         return "viewpot";
     }
 
-    @GetMapping("/searchname")
-    public String searchByName(Model model) {
-        model.addAttribute("searchNames", new Pot());
-        return "searchname";
+    @GetMapping("/searchBYFName")
+    public String searchFNameMethod(Model model){
+        model.addAttribute("searchFname",new PotLuck());
+        return "searchBYFName";
     }
 
-    @PostMapping("/searchname")
-    public String searchByName(Model model, @RequestParam("searchName") String firstnames) {
-        if (firstnames != null) {
-            Iterable<Pot> potList = potRepository.findAllByFirstname(firstnames);
-            model.addAttribute("firstnames", potList);
-        }
-            return "resultName";
+    @PostMapping("/searchBYFName")
+    public String searchFNameMethod(@ModelAttribute("searchFname") PotLuck potLuck, Model model){
+        Iterable<PotLuck>  listFName= potLuckRepository.findAllByFirstname(potLuck.getFirstname());
+        model.addAttribute("listName",listFName);
+
+        return "dispFName";
     }
 
-    @GetMapping("/searchdish")
-    public String searchByDish(Model model, @RequestParam("searchDish") String searchDish) {
-        if (searchDish != null) {
-            Iterable<Pot> potList = potRepository.findAllByDish(searchDish);
-            model.addAttribute("searchDish", potList);
-        }
-
-        return "searchdish";
+    @GetMapping("/searchByDish")
+    public String searchDishMethod(Model model){
+        model.addAttribute("searchDish",new PotLuck());
+        return "searchByDish";
     }
+    @PostMapping("/searchByDish")
+    public String searchDishMethod(@ModelAttribute("searchDish") PotLuck potLuck, Model model)
+    {
+        Iterable<PotLuck>  listDish= potLuckRepository.findAllByDishContains(potLuck.getDish());
+        model.addAttribute("list",listDish);
+        return "dispDish";
+    }
+
 
 }

@@ -2,22 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title></title>
-
+    <title>Title</title>
 </head>
 <body>
-<div class="container">
-    <form  action="#"  th:action="@{/searchname}"  method="post" th:object="${searchNames}">
-
-        <div  th:if="${#fields.hasErrors('firstname')}" th:text="*{firstname}">You Must enter a valid Name!</div>
-        <label>First Name</label>
-        <input type="text" th:field="*{firstname}" name="firstname" placeholder="Enter First Name"  />
-
-            <button type="submit" class="btn btn-warning" >Search<span class="glyphicon glyphicon-hand-up"></span></button>
+<form action = "#" th:action="@{/searchdish}" th:object="${searchDish}" method="post">
 
 
-    </form>
-</div>
+    <p>Enter Dish Name: <input type="text" th:field="*{dish}" /></p>
+    <!--<span th:if="${#fields.hasErrors('dish')}" th:error="*{firstname}">Your food doesnt taste good</span>-->
 
+
+    <p><input type="submit" value="Search Dish" /> <input type="reset" value="Reset" /> </p>
+    <a href="/searchchef"> Search by Chef </a><br/>
+    <a href="/searchdish"> Search by Dish</a>
+</form>
 </body>
 </html>
