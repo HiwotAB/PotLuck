@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -41,12 +39,22 @@ public class PotController {
         potLuckRepository.save(pot);
         return "dispPotLuck";
     }
+    @RequestMapping("/update/{id}")
+    public String updateCourse(@PathVariable("id") long id, Model model){
+        model.addAttribute("newPot", potLuckRepository.findOne(id));
+        return "addPotLuck";
+    }
 
+    @RequestMapping("/delete/{id}")
+    public String delCourse(@PathVariable("id") long id){
+        potLuckRepository.delete(id);
+        return "redirect:/ListPotLuckInfo";
+    }
     @GetMapping("/ListPotLuckInfo")
     public String viewPotLuckInfo(Model model) {
         Iterable<PotLuck> potList = potLuckRepository.findAll();
-        model.addAttribute("newPot", potList);
-        return "viewpot";
+        model.addAttribute("newPots", potList);
+        return "ListPotLuckInfo";
     }
 
     @GetMapping("/searchBYFName")
@@ -71,8 +79,8 @@ public class PotController {
     @PostMapping("/searchByDish")
     public String searchDishMethod(@ModelAttribute("searchDish") PotLuck potLuck, Model model)
     {
-        Iterable<PotLuck>  listDish= potLuckRepository.findAllByDishContains(potLuck.getDish());
-        model.addAttribute("list",listDish);
+        Iterable<PotLuck>  listDish= potLuckRepository.findAllByDish(potLuck.getDish());
+        model.addAttribute("listDish",listDish);
         return "dispDish";
     }
 

@@ -14,6 +14,7 @@ public class PotLuck {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotEmpty
     @Size(min=2, max=30)
     private String firstname;
