@@ -41,7 +41,7 @@
 <body>
     <section class="hero">
             <div class="container text-center">
-                <div class="container" align="center">
+
                         <form class="form-horizontal" th:action="@{/addPotLuck}" th:object="${newPot}" method="post">
                             <!-- Form Name -->
                             <legend align="Center">Enter Your Name and Dish!</legend>
@@ -76,13 +76,13 @@
                             <div class="form-group">
                                 <div class="col-md-10">
 
-                                        <p><button type="submit" class="btn btn-success">Submit</button></p>
-                                    <p><button type="reset" class="btn btn-warning" >Reset</button></p>
+                                        <p><button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="reset" class="btn btn-warning" >Reset</button></p>
                                     </div>
                                 </div>
 
                         </form>
-                 </div>
+
             </div>
     </section>
     <!-- Required JavaScript Libraries -->
